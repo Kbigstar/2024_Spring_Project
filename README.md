@@ -29,3 +29,12 @@
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/409dae46-6b6a-4c70-861d-53971d3739d9" alt="edit_plan2">
 </p>
+
+- **하루 종일 Event 처리**
+<p align="center">
+  <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/c38e2008-3088-4d21-b245-def51c5aaaf2" alt="schedule planner with blue and yellow sections, time slots, and labels for different activities and breaks">
+</p>
+
+<p align="center">
+  <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/32ced0cc-1447-47c4-8cdb-dcb9210f81bc" alt="detailed daily planner with time slots, categories for tasks, breaks, and goals, and color-coded sections">
+</p>
