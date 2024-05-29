@@ -10,11 +10,15 @@
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/1cd77ab0-2802-4a30-a210-6723af843cef" alt="main">
 </p>
 <br>
+<hr>
+<br>
 
 ## 캘린더 화면
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/4aefeb08-98a7-4ec7-a9c9-4ad4559a860b" alt="calendarView">
 </p>
+<br>
+<hr>
 <br>
 
 ### 일정등록
@@ -22,17 +26,23 @@
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/560f709c-1d2d-4d7d-b1bd-9092b52b5e64" alt="create_plan1">
 </p>
 <br>
+<hr>
+<br>
 
 - **수정 / 삭제 Modal** 
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/6bbda281-69ff-4ee7-9775-93873e93cef5" alt="edit_plan1">
 </p>
 <br>
+<hr>
+<br>
 
 - **일정 수정** 
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/409dae46-6b6a-4c70-861d-53971d3739d9" alt="edit_plan2">
 </p>
+<br>
+<hr>
 <br>
 
 - **하루 종일 Event 처리**
@@ -42,6 +52,8 @@
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/32ced0cc-1447-47c4-8cdb-dcb9210f81bc" alt="detailed daily planner with time slots, categories for tasks, breaks, and goals, and color-coded sections">
 </p>
+<br>
+<hr>
 <br>
 
 - **일정 추천**
@@ -53,6 +65,8 @@
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/1547aca3-63e9-4bd6-b94d-f18bd42012b0" alt="recommendation plan with time slots, activities, and goals for different parts of the day">
 </p>
 <br>
+<hr>
+<br>
 
 - **세부 일정 추천**
 <p align="center">
@@ -62,6 +76,8 @@
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/f3379140-4d78-46b2-88d1-8cdfd1689e05" alt="detailed recommendation plan with time slots, task categories, and spaces for notes and priorities">
 </p>
+<br>
+<hr>
 <br>
 
 - **ChatGPT 채팅서비스**
