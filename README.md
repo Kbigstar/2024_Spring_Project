@@ -2,7 +2,14 @@
 
 - **Front-End**: HTML, CSS, JavaScript  
 - **Back-End**: Spring, Flask
+
 <br>
+
+## 구현 목표
+ - FullCalendar를 사용하여 회원들의 일정을 데이터베이스에 저장하고 관리하며, ChatGPT를 통합하여 회원들이 여가 시간에 대한 일정 추천을 받거나 다양한 질문에 대한 답변을 제공할 수 있도록 구현. 이 프로젝트는 사용자 경험을 향상시키고, 스마트한 일정 관리와 개인화된 추천 서비스를 제공하는 것을 목표로 합니다.
+
+<br>
+<hr>
 <br>
 
 ## 메인화면
@@ -80,7 +87,8 @@
 <hr>
 <br>
 
-<h2>- **ChatGPT 채팅서비스**</h2>
+
+- **ChatGPT 채팅서비스**
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/1ebeff55-96b7-4354-8026-447be87d27e2" alt="chatGPT chat interface showing a conversation with a user, displaying text input and response sections">
 </p>
