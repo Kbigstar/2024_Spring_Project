@@ -1,7 +1,7 @@
 # 개인프로젝트
 ```
-**Front-End** : HTML, CSS, JavaScript 
-**Back-End** : Spring, Flask
+**Front-End**: HTML, CSS, JavaScript  
+**Back-End**: Spring, Flask
 ```
 
 ## 메인화면
