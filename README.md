@@ -80,7 +80,7 @@
 <hr>
 <br>
 
-- **ChatGPT 채팅서비스**
+<h2>- **ChatGPT 채팅서비스**</h2>
 <p align="center">
   <img src="https://github.com/Kbigstar/2024_Spring_Project/assets/93638178/1ebeff55-96b7-4354-8026-447be87d27e2" alt="chatGPT chat interface showing a conversation with a user, displaying text input and response sections">
 </p>
