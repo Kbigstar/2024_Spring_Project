@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+	  <!-- Oracle 테이블의 컬럼이 mem_id 이고, DTO의 필드변수가 memId 일때 매칭이 가능하게 하는 옵션 -->
+	  <setting name="mapUnderscoreToCamelCase" value="true"/>
+	  
+	    <!-- 널 허용 -->
+	  <setting name="jdbcTypeForNull" value="NULL" /> 
+	</settings>
+
+	<!-- mapper vo 매핑 -->
+	<!-- .xml 파일 내 resultType에 alias 사용가능 -->
+	<typeAliases>
+		<typeAlias type="com.future.my.member.vo.MemberVO" alias="MemberVO" />
+		<typeAlias type="com.future.my.calendar.vo.CalendarVO" alias="CalendarVO" />
+		<typeAlias type="com.future.my.chat.vo.ChatGptVO" alias="ChatGptVO" />
+		<typeAlias type="com.future.my.chat.vo.RoomVO" alias="RoomVO" />
+	</typeAliases>
+</configuration>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.future.my.calendar.dao.ICalendarDAO">
+
+ 	<!-- 일정 조회 -->
+ 	<select id="getCalendarList" parameterType="CalendarVO" resultType="CalendarVO">
+ 		SELECT a.cal_no  
+ 			,a.cal_title
+	        ,a.cal_startdt
+	        ,a.cal_enddt
+	        ,a.cal_allday
+	        ,a.cal_bgcolor
+	        ,a.cal_textcolor
+	        ,b.mem_id
+	        ,a.del_yn
+		FROM calendar a, members b
+        WHERE a.mem_id = b.mem_id
+		AND a.del_yn = 'N'
+		AND a.mem_id   = #{memId}
+ 	</select>
+	
+	<!-- 일정 등록 -->
+ 	<insert id="addCalendarEvent" parameterType="CalendarVO">
+ 	
+ 		<selectKey keyProperty="calNo" resultType="int" order="BEFORE">
+ 				SELECT cal_no_seq.NEXTVAL as cal_no FROM DUAL
+ 		</selectKey>
+ 	
+ 	
+		INSERT INTO calendar( 
+		                    cal_no,
+							cal_title, 
+							cal_startdt, 
+							cal_enddt, 
+							cal_bgcolor, 
+							cal_textcolor, 
+							cal_allday, 
+							mem_id)
+		VALUES (  #{calNo}, 
+			 	#{calTitle}, 
+				#{calStartdt}, 
+				#{calEnddt}, 
+				#{calBgcolor}, 
+				#{calTextcolor}, 
+				#{calAllday}, 
+				#{memId}
+				) 	
+ 	</insert>
+ 	
+ 	<select id="getNextCalNo" resultType="int">
+    	SELECT cal_no_sequence.NEXTVAL FROM DUAL
+	</select>
+ 	
+ 	<!-- 일정 수정 -->
+ 	<update id="updateCalendarEvent" parameterType="CalendarVO">
+		UPDATE calendar
+		SET  cal_title = #{calTitle},
+		     cal_startdt = #{calStartdt},
+		     cal_enddt = #{calEnddt},
+		     cal_allday = #{calAllday},
+		     cal_bgcolor = #{calBgcolor},
+		     cal_textcolor = #{calTextcolor}
+		WHERE mem_id = #{memId}
+		AND cal_no = to_number(#{calNo})
+ 	</update>
+ 	
+ 	<!-- 일정 삭제 (del_yn 'N' ->> 'Y')  -->
+ 	<update id="updateCalendarDel" parameterType="CalendarVO">
+ 		UPDATE calendar
+		SET del_yn = 'Y'
+		WHERE mem_id = #{memId}
+		AND cal_no = to_number(#{calNo})
+ 	</update>
+ </mapper>

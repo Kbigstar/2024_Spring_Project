@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* 가로 스크롤 막기 */
+
+}
+
+.chat-container-wrapper {
+    display: flex;
+    justify-content: space-between; /* 좌우로 정렬 */
+    align-items: flex-start;
+    overflow-x: hidden; /* 가로 스크롤 막기 */
+}
+
+#newChatButton {
+    width: 30%;
+    text-align: center;
+    /* margin-bottom: 20px; */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* padding: 20px; */
+    max-height: 770px;
+    overflow-y: scroll;
+}
+
+.chat-container {
+    width: calc(70% - 1px); /* .chat-container의 너비를 조정 */
+    height: 900px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    position: relative;
+/*     overflow-x: hidden; 가로 스크롤 막기
+    overflow-y: hidden; 세로 스크롤 막기 */
+}
+.messages {
+    height: 700px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.user-message {
+    text-align: right;
+    margin-bottom: 5px;
+}
+.gpt-message {
+    text-align: left;
+    margin-bottom: 5px;
+}
+.message-content {
+    display: inline-block;
+    padding: 10px;	
+    border-radius: 10px;
+    margin-bottom : 50px;
+}
+.user-message .message-content {
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+}
+.gpt-message .message-content {
+    background-color: aliceblue;
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+}
+.input-group {
+    position: absolute;
+    bottom: 20px;
+    left: 50%; /* 가운데 정렬을 위해 왼쪽 여백 50%로 설정 */
+    transform: translateX(-50%); /* 가운데 정렬 */
+    width: 80%; /* 가로 폭 조정 */
+    display: flex; /* 내부 요소들을 가로로 배치 */
+    /* justify-content: space-between; 내부 요소들을 가운데 정렬 */
+}
+.input-group input[type="text"] {   
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 150px;
+}
+.input-group button {
+    width: 20%;
+    padding: 10px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight : bold;
+    cursor: pointer;
+}
+.room-container {
+    height: 300px; /* 고정된 높이 */
+    overflow-y: scroll; /* 스크롤바 표시 */
+    margin-bottom: 10px; /* 간격 추가 */
+}
+
+.room-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.delete-room-button {
+    background: none;
+    border: none;
+    color: red; /* X 버튼의 색상을 지정하세요 */
+    font-weight: bold; /* X 버튼의 텍스트 굵기를 설정하세요 */
+    cursor: pointer;
+    margin-left: 5px; /* X 버튼과 방 이름 사이의 간격을 조정하세요 */
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

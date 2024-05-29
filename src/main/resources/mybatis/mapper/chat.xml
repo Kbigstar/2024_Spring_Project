@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.future.my.chat.dao.IChatDAO">
+ 
+ <select id="getRoomList" resultType="RoomVO" parameterType="String">
+	SELECT  a.room_no
+	       ,a.room_name
+	       ,a.mem_id
+	       ,b.mem_nm
+	       ,a.reg_date
+	FROM rooms a, members b
+	WHERE a.mem_id = b.mem_id
+	AND b.mem_id = #{memId}
+	AND a.del_yn = 'N'
+	ORDER BY a.reg_date desc
+		 
+ </select>
+ 
+<insert id="insertChat" parameterType="ChatGptVO">
+<!--  		<selectKey keyProperty="roomNo" resultType="int" order="BEFORE"> -->
+<!--  				SELECT room_seq.nextval-1 roomNo FROM DUAL -->
+<!--  		</selectKey> -->
+
+	INSERT INTO chatgpt (chat_no, room_no, mem_id, chat_msg)
+	VALUES (chat_seq.nextval, #{roomNo}, #{memId}, #{chatMsg})
+</insert>
+
+<select id="getChatList" parameterType="int" resultType="ChatGptVO">
+	SELECT   a.chat_no
+        	,a.room_no
+        	,b.mem_id
+        	,a.chat_msg
+	FROM chatgpt a, members b
+    WHERE a.mem_id = b.mem_id
+    AND a.room_no = #{roomId}
+	ORDER BY a.chat_no
+</select>
+ 
+ <insert id="createRoom" parameterType="RoomVO">
+	<selectKey keyProperty="roomNo" resultType="int" order="BEFORE">
+			SELECT room_seq.NEXTVAL roomNo FROM DUAL
+	</selectKey>
+ 	INSERT INTO rooms (room_no, room_name, mem_id)
+	VALUES (#{roomNo}, '번 방', #{memId})
+ </insert>
+ 
+ <delete id="deleteRoom" parameterType="RoomVO">
+ 	DELETE rooms 
+ 	WHERE room_no = #{roomNo}
+ </delete>
+ </mapper>

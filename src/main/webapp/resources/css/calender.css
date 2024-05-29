@@ -1,0 +1,166 @@
+#calendar {
+    /* box-shadow: 3px 3px 3px 3px gray; */
+    border: 1px solid rgba(211, 211, 211, .5);
+    border-radius: 5px;
+    width: 70%;
+    height: 800px;
+    margin-top: 20px;
+    /* margin-left: 10px;  */
+    margin-right: 10px; 
+  }
+  #tool {
+    border: 1px solid rgba(211, 211, 211, 1);
+    border-radius: 5px;
+    
+    width: 25%;
+    height: 800px;
+    margin-top: 20px;
+    margin-left: 50px; 
+    
+  }
+
+    /*요일*/
+.fc-col-header-cell-cushion {
+    color: #000;
+    text-decoration: none;
+}
+.fc-col-header-cell-cushion:hover {
+    text-decoration: none;
+    color:#999;
+    
+}
+    /*일자*/
+.fc-daygrid-day-number{
+    color: #000;
+    font-size:1em;
+    text-decoration: none;
+}
+
+
+
+  /*month/week/day*/
+  /* !important 우선순위 적용 */
+  
+.fc-button-active{
+    border-color: #ffc107 		!important;
+    background-color: #ffc107 	!important;
+    color: #000 				!important;
+    font-weight: bold 			!important;
+}
+.fc-sat, .fc-sun {
+    background-color: #ffcccc; /* 주말의 배경색을 빨간색으로 설정 */
+}
+
+#navBtn{
+    width: 200px;
+    background-color: #111; 
+    border: 2px solid;
+    border-radius: 1px;
+    border-color: white; 
+    font-weight: bold;
+    color: white;
+}
+#navBtn:hover{
+    background-color: green;
+}
+
+#toolBtn{
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 0px;
+  background-color: black; 
+  border: 1px solid rgba(211, 211, 211, 1); 
+  border-radius: 5px;
+  width: 300px;
+  
+  /* margin-left: 75px; */
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+}
+
+#toolBtn:hover{
+  border-color: white;
+    color: white;
+    box-shadow: 0 0.5em 0.5em -0.4em black;
+
+}
+.sp{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-col {
+  flex: 1;  /* 기본 설정, 필요에 따라 조정 */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* 가로축 가운데 정렬 */
+  align-items: center; /* 세로축 가운데 정렬 */
+  height: 50px; /* 예시 높이, 필요에 따라 조정 */
+}
+
+
+#colorSelect, #t_colorSelect {
+  margin-left: 0;
+  border: 1px solid #ccc; /* 테두리 설정 */
+  border-radius: 4px; /* 선택적으로 테두리를 둥글게 처리할 수 있습니다. */
+  display: block;
+  margin: 10px auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  /* outline: 1px solid #ccc; outline 속성으로 테두리 설정 */
+  /* border-radius: 4px; 선택적으로 테두리를 둥글게 처리할 수 있습니다. */
+}
+
+#colorSelect::-webkit-color-swatch {
+  border-radius: 30px;
+  
+}
+
+#t_colorSelect::-webkit-color-swatch {
+  border-radius: 30px;
+  
+}
+
+span {
+  display: block; /* span 요소를 블록 요소로 변경하여 줄바꿈 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  margin: 1px 0; /*상하 마진 추가 */
+}
+
+#editDeleteModal .modal-body {
+    text-align: center; /* 버튼을 가운데 정렬합니다. */
+}
+
+.wrap-loading {
+    position: fixed;
+    z-index: 9999; /* 다른 요소들보다 위에 표시될 숫자를 지정합니다. */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    /* IE 8 이하 버전을 위한 필터 */
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');
+}
+
+.wrap-loading div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.display-none {
+	display: none;
+}
+

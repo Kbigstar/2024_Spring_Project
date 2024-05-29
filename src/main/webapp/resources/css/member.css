@@ -1,0 +1,71 @@
+.regist_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 800px;
+    height: 600px;
+    border: 1px solid #ebeaec;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+}       
+
+.regist_form {
+    display:flex;
+    flex-direction: column;
+    width:500px;
+    margin-top:10px;
+    align-items: center; /* 여기에 추가 */
+}   
+
+.regist_form input {
+    margin-top: 10px;
+    /* margin-left: 120px; */
+    width: 300px;
+    height: 50px;
+}
+
+.regist_form button {
+  margin-top: 10px;
+  /* margin-left: 120px; */
+  margin-bottom: 5px;
+  width: 300px;
+  height: 50px;
+  border-radius: 6px;
+  border: solid 1px rgba(0,0,0,.15);
+}
+
+#regist_btn{
+    -moz-transition: background, 1s;
+    -o-transition: background, 1s;
+    -webkit-transition: background, 1s;
+    transition: background, 1s;
+}
+
+#regist_btn:hover {
+    
+    background-color: blue;
+    color : white;
+
+}
+
+#regist_btn2{
+    -moz-transition: background, 1s;
+    -o-transition: background, 1s;
+    -webkit-transition: background, 1s;
+    transition: background, 1s;
+}
+
+#regist_btn2:hover {
+    background-color: darkorange; /* 마우스를 버튼 위로 가져갔을 때 배경색 변경 */
+    color: black; /* 마우스를 버튼 위로 가져갔을 때 글꼴 색상 변경 */
+}
+
+.ac {
+  color: gray;
+  text-decoration: none;
+}
