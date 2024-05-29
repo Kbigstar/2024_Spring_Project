@@ -1,6 +1,6 @@
 # FullCalendar API를 활용한 일정관리 홈페이지
 
-- **Front-End**: HTML, CSS, JavaScript  
+- **Front-End**: HTML, CSS, JavaScript, jQuery
 - **Back-End**: Spring, Flask
 
 <br>
