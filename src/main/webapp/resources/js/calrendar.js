@@ -506,7 +506,7 @@ function deleteCalendarEvent(calendarData) {
 //GPT 추천일정 삽입
 function addCalendarEvent2(eventData) {
     $.ajax({
-        url: '/my/addEvent',
+        url: '/my/calendar',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
