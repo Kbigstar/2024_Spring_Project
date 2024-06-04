@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,22 +46,31 @@ public class ChatController {
         return "chatgpt/chatgpt";
     }
 
-    // 채팅방 생성
-    @PostMapping("/createRoom")
+    @PostMapping("/rooms")
     @ResponseBody
-    public RoomVO createRoom(@RequestBody RoomVO roomVO) {
+    public ResponseEntity<RoomVO> createRoom(@RequestBody RoomVO roomVO) {
+        try {
             chatService.createRoom(roomVO);
-            System.out.println(roomVO);
-        return roomVO;
+            return ResponseEntity.status(HttpStatus.CREATED).body(roomVO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
     
     
  // 채팅 내역 조회
-    @GetMapping("/chatListView")
+    @GetMapping("/rooms/{roomNo}/chats")
     @ResponseBody
-    public List<ChatGptVO> chatListView(@RequestParam int roomNo) {
-        return chatService.getChatList(roomNo);
+    public ResponseEntity<List<ChatGptVO>> chatListView(@PathVariable int roomNo) {
+        try {
+            List<ChatGptVO> chatList = chatService.getChatList(roomNo);
+            return ResponseEntity.ok(chatList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
 
     static class RequestData {
@@ -76,33 +86,39 @@ public class ChatController {
     }
     
     // 채팅 메시지 전송 처리
+    @PostMapping("/rooms/{roomNo}/messages")
     @ResponseBody
-    @PostMapping("/sendMessage")
-    public ResponseEntity<?> sendMessage(@RequestBody ChatGptVO chatVO) {
-    	Map<String, Object> map = new HashMap<String, Object>();
-    	// 채팅 메시지를 데이터베이스에 저장
-        chatService.insertChat(chatVO);
-
-        
-        System.out.println("메세지 저장");
-        System.out.println(chatVO);
-        map.put("msg", "Y");
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-    }
-
- // 채팅방 삭제
-    @DeleteMapping("/deleteRoom")
-    @ResponseBody
-    public ResponseEntity<String> deleteRoom(@RequestBody RoomVO roomVO) {
+    public ResponseEntity<?> sendMessage(@PathVariable int roomNo, @RequestBody ChatGptVO chatVO) {
+        Map<String, Object> map = new HashMap<>();
         try {
-            System.out.println(roomVO);
-            chatService.deleteRoom(roomVO);
-            System.out.println("========================");
-            return new ResponseEntity<>("Room deleted successfully!", HttpStatus.OK);
+            // roomNo를 chatVO에 설정
+            chatVO.setRoomNo(roomNo);
+            // 채팅 메시지를 데이터베이스에 저장
+            chatService.insertChat(chatVO);
+
+            System.out.println("메세지 저장");
+            System.out.println(chatVO);
+            map.put("msg", "Y");
+            return ResponseEntity.ok(map);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete room: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send message");
         }
     }
 
-    
+
+ // 채팅방 삭제
+    @DeleteMapping("/rooms/{roomNo}")
+    @ResponseBody
+    public ResponseEntity<String> deleteRoom(@PathVariable int roomNo) {
+        try {
+            RoomVO roomVO = new RoomVO();
+            roomVO.setRoomNo(roomNo);
+            chatService.deleteRoom(roomVO);
+            System.out.println("Room deleted: " + roomNo);
+            return ResponseEntity.ok("Room deleted successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete room: " + e.getMessage());
+        }
+    }
+
 }

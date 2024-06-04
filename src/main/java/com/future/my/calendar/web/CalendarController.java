@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,11 +42,10 @@ public class CalendarController {
 	}
 
 	// 일정 등록
-	@PostMapping("/addEvent")
+	@PostMapping("/calendar")
 	    public ResponseEntity<?> addCalendarEvent(@RequestBody CalendarVO vo) {
 			Map<String, Object> map = new HashMap<String, Object>();
 	        try {
-	        	
 	            // 여기서 캘린더 이벤트 추가 로직을 처리하고 성공 했다면
 	             calService.addCalendarEvent(vo);
 	             System.out.println(">>>>>" + vo.getCalNo());
@@ -57,23 +57,24 @@ public class CalendarController {
 	    }
 	
 	// 일정 수정
-	@PutMapping("/updateEvent")
+	@PutMapping("/{id}")
 	@ResponseBody
-	public ResponseEntity<String> updateCalendar(@RequestBody CalendarVO vo) {
+	public ResponseEntity<String> updateCalendar(@PathVariable Long id, @RequestBody CalendarVO vo) {
 	    try {
-	        System.out.println("[업데이트]");
+	        System.out.println("[업데이트] ID: " + id);
 	        System.out.println(vo);
-	        calService.updateCalendarEvent(vo);
-	        return ResponseEntity.ok("[Not Error] Event updated successfully");
+	        calService.updateCalendarEvent(vo); 
+	        return ResponseEntity.ok("Event updated successfully");
 	    } catch (Exception e) {
 	        System.out.println(e);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update event");
 	    }
 	}
 
+
 	
 	// 일정 삭제
-	@DeleteMapping("/delEvent")
+	@DeleteMapping("/{id}")
 	@ResponseBody
 	public ResponseEntity<String> updateCalendarDel(@RequestBody CalendarVO vo) {
 	    try {

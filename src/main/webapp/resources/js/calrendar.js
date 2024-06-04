@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 일정 삽입
 function addCalendarEvent(eventData) {
     $.ajax({
-        url: '/my/addEvent',
+        url: '/my/calendar',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -434,18 +434,22 @@ function fetchCalendarEvent(memId) {
     });
 }
 
-
+// 일정 수정
 function updateCalendarEvent(eventData) {
     $.ajax({
-        url: '/my/updateEvent',
+        url: '/my/' + eventData.calNo, // RESTful 엔드포인트
         type: 'PUT',
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(eventData),
         success: function(response, status, xhr) {
-            if (xhr.status === 200) {
+            if (xhr.status === 302) {
                 var redirectUrl = xhr.getResponseHeader('Location');
-                window.location.href = redirectUrl;
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                } else {
+                    calendar.refetchEvents();
+                }
             } else {
                 console.log(response);
                 calendar.refetchEvents();
@@ -456,7 +460,6 @@ function updateCalendarEvent(eventData) {
         },
         complete: function() {
             // 모달창 input val 초기화
-            // 수정 시에 colorSelect와 t_colorSelect 초기화
             startTime = '';
             endTime = '';
             $("#calendar_content").val("");
@@ -474,13 +477,14 @@ function updateCalendarEvent(eventData) {
     });
 }
 
+// 일정 삭제
 function deleteCalendarEvent(calendarData) {
     // 서버로 보낼 데이터를 JSON 형식으로 변환합니다.
     var jsonData = JSON.stringify(calendarData);
 
     // AJAX를 사용하여 서버로 요청을 보냅니다.
     $.ajax({
-        url: '/my/delEvent', // 요청을 보낼 엔드포인트 URL
+        url: '/my/' + calendarData.calNo, // RESTful 엔드포인트,
         type: 'DELETE', // HTTP 요청 메서드 (DELETE)
         contentType: 'application/json', // 요청 본문의 데이터 형식
         data: jsonData, // 요청 본문에 포함될 데이터
@@ -604,7 +608,7 @@ function createPlan(query, currentPlan){
 	plan = currentPlan;
 	$.ajax({
         type: "POST",
-        url: "http://192.168.0.16:5555/gpt",
+        url: "", // Flask url
         data :JSON.stringify({query:query, user_plan:plan}),
         dataType : 'json',
         beforeSend : function(){
