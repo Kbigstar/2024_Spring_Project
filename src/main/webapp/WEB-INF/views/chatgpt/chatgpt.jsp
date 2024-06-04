@@ -54,42 +54,6 @@
     let calStartdt;
     let calEnddt;
 
-    function createPlan(query, currentPlan){
-    		var plan = [];
-    		plan = currentPlan;
-    		$.ajax({
-                type: "POST",
-                url: "http://127.0.0.1:5555/gpt",
-                data :JSON.stringify({query:query, user_plan:plan}),
-                dataType : 'json',
-                success: function(res){
-                    console.log("gd",JSON.stringify(res));
-                    
-                    if (res && res.activity && res.activity.length > 0) {
-                        // activity 배열을 순회하면서 각 일정의 정보를 처리
-                        res.activity.forEach(activity => {
-                            console.log("calStartdt:", activity.calStartdt);
-                            console.log("calEnddt:", activity.calEnddt);
-                            console.log("calTitle:", activity.calTitle);
-                        calTitle = activity.calTitle + " [GPT]";
-                        calStartdt = activity.calStartdt;
-                        calEnddt = activity.calEnddt;
-
-                        var eventData = {
-                            "calTitle": calTitle,
-                            "calStartdt": calStartdt,
-                            "calEnddt": calEnddt,
-                            "memId": "${sessionScope.login.memId}"
-                        };
-                        addCalendarEvent(eventData);
-                    });}
-                },
-                error:function(e){
-                    console.log(e);
-                },
-            });
-    }
-    
     function addRoom() {
         // 방 목록의 각 방에 대한 정보를 가져옴
         const rooms = document.querySelectorAll('.room-name');
@@ -97,15 +61,15 @@
 
         // AJAX를 통해 서버에 새로운 방 추가 요청 보내기
         $.ajax({
-            url: '/my/rooms', // 변경된 URL 경로
+            url: '/my/createRoom',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ memId: '${sessionScope.login.memId}' }),
             success: function(response) {
-                newRoomNo = response.roomNo; 
-                // 새로운 방 이름
+            	newRoomNo = response.roomNo; 
+            	  // 새로운 방 이름
                 const roomName = '방' + newRoomNo;
-                
+            	  
                 // 새로운 방이 성공적으로 추가된 경우, 화면에도 새로운 방 추가
                 const roomElement = document.createElement('div');
                 roomElement.classList.add('room');
@@ -114,7 +78,7 @@
                 roomNameElement.classList.add('room-name');
                 roomNameElement.textContent = roomName;
 
-                // 새로운 방 번호를 숨은 입력란에 추가
+             // 새로운 방 번호를 숨은 입력란에 추가
                 const hiddenRoomNoInput = document.createElement('input');
                 hiddenRoomNoInput.type = 'hidden';
                 hiddenRoomNoInput.classList.add('roomNo');
@@ -125,13 +89,13 @@
                 deleteButton.textContent = 'X';
                 deleteButton.classList.add('delete-room-button');
                 deleteButton.addEventListener('click', function() {
-                    deleteRoom(newRoomNo);
+                	deleteRoom(newRoomNo);
                 });
                 roomNameElement.appendChild(deleteButton);
 
                 roomElement.appendChild(roomNameElement);
                 document.querySelector('hr').insertAdjacentElement('afterend', roomElement);
-                
+				
                 // 방이 생성될 때 메시지 출력 부분 초기화
                 const messagesContainer = document.getElementById('messages');
                 messagesContainer.innerHTML = '';
@@ -145,14 +109,15 @@
         });
     }
 
-
     function deleteRoom(roomNo) {
         if (confirm('정말로 이 채팅방을 삭제하시겠습니까?')) {
             $.ajax({
-                url: '/my/rooms/' + roomNo,
-                type: 'DELETE',
+                url: '/my/deleteRoom',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ roomNo: roomNo }),
                 success: function(response) {
-                    console.log('==============', response);
+                	console.log('==============',response);
                     // 채팅방이 성공적으로 삭제된 경우, 화면에서 해당 채팅방을 제거
                     const roomElement = document.querySelector('.roomNo[value="'+roomNo+'"]');
                     if (roomElement) {
@@ -167,40 +132,40 @@
         }
     }
 
-
-
         const messagesContainer = document.getElementById('messages');
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
 
         function insertChatMsg(roomNo, message, memId) {
             var chatData = {
-                "memId": memId,
-                "chatMsg": message
+                "memId" : memId,
+                "roomNo" : roomNo,
+                "chatMsg" : message
             };
 
             $.ajax({
-                url: '/my/rooms/' + roomNo + '/messages', // 변경된 URL 경로
-                type: 'POST',
-                contentType: 'application/json',
-                dataType: 'json',
-                data: JSON.stringify(chatData),
-                success: function(response) {
+                url : '/my/sendMessage',
+                type : 'POST',
+                contentType : 'application/json',
+                dataType : 'json',
+                data : JSON.stringify(chatData),
+                success : function(response) {
                     // 성공적으로 메시지를 전송한 경우 실행할 코드 추가
                     console.log('메시지 전송 성공');
                 },
-                error: function(xhr, status, error) {
+                error : function(xhr, status, error) {
                     // 메시지 전송 실패 시 실행할 코드 추가
                     console.error('메시지 전송 실패:', error);
                 }
             });
         }
-
         
         function fetchChatList(roomNo) {
             $.ajax({
-                url: '/my/rooms/' + roomNo + '/chats', // 변경된 URL 경로
-                type: 'GET',
+                url: '/my/chatListView',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ roomNo: roomNo }),
                 success: function(data) {
                     console.log('Received chat list:', data);
                     // 받아온 채팅 데이터를 화면에 출력
@@ -217,8 +182,6 @@
                 }
             });
         }
-
-
 
         
      // GPT 응답을 서버로 전송하는 함수
