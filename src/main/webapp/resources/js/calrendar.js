@@ -486,14 +486,10 @@ function deleteCalendarEvent(calendarData){
          contentType: 'application/json', // 요청 본문의 데이터 형식
          data: jsonData, // 요청 본문에 포함될 데이터
          success: function(response) {
-             // 성공적으로 응답을 받은 경우 실행될 함수
              console.log(response);
-             // TODO: 성공 메시지 처리 또는 화면 갱신 등의 작업을 수행합니다.
          },
          error: function(xhr, status, error) {
-             // 요청이 실패한 경우 실행될 함수
              console.error(xhr.responseText);
-             // TODO: 실패 메시지 처리 또는 오류 처리 등의 작업을 수행합니다.
          }
      });
 }
@@ -513,7 +509,6 @@ function addCalendarEvent2(eventData) {
                 window.location.href = redirectUrl;
             } else {
                 console.log(response);
-                // AJAX 요청이 성공적으로 완료된 후에 calendar.addEvent 호출
             }
         },
         error: function(xhr, status, error) {
@@ -604,7 +599,7 @@ function createPlan(query, currentPlan){
 	plan = currentPlan;
 	$.ajax({
         type: "POST",
-        url: "", // Flask URL
+        url: "http://192.168.0.16:5555/gpt",
         data :JSON.stringify({query:query, user_plan:plan}),
         dataType : 'json',
         beforeSend : function(){
