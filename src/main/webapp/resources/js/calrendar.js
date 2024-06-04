@@ -599,7 +599,7 @@ function createPlan(query, currentPlan){
 	plan = currentPlan;
 	$.ajax({
         type: "POST",
-        url: "http://192.168.0.16:5555/gpt",
+        url: "", // Flask URL
         data :JSON.stringify({query:query, user_plan:plan}),
         dataType : 'json',
         beforeSend : function(){
