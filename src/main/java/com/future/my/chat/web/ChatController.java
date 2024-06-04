@@ -11,9 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.future.my.chat.service.ChatService;
@@ -46,21 +49,19 @@ public class ChatController {
     @PostMapping("/createRoom")
     @ResponseBody
     public RoomVO createRoom(@RequestBody RoomVO roomVO) {
-
             chatService.createRoom(roomVO);
             System.out.println(roomVO);
-            return roomVO;
-
+        return roomVO;
     }
     
     
-    // 채팅 내역 조회
-    @PostMapping("/chatListView")
+ // 채팅 내역 조회
+    @GetMapping("/chatListView")
     @ResponseBody
-    public List<ChatGptVO> chatListView(@RequestBody RequestData requestData) {
-        int roomNo = requestData.getRoomNo();
+    public List<ChatGptVO> chatListView(@RequestParam int roomNo) {
         return chatService.getChatList(roomNo);
     }
+
 
     static class RequestData {
         private int roomNo;
@@ -89,18 +90,19 @@ public class ChatController {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
 
-    // 채팅방 삭제
-    @PostMapping("/deleteRoom")
+ // 채팅방 삭제
+    @DeleteMapping("/deleteRoom")
     @ResponseBody
-    public String deleteRoom(@RequestBody RoomVO roomVO) {
+    public ResponseEntity<String> deleteRoom(@RequestBody RoomVO roomVO) {
         try {
-        	System.out.println(roomVO);
+            System.out.println(roomVO);
             chatService.deleteRoom(roomVO);
             System.out.println("========================");
-            return "Room delete successfully!";
+            return new ResponseEntity<>("Room deleted successfully!", HttpStatus.OK);
         } catch (Exception e) {
-            return "Failed to delete room: " + e.getMessage();
+            return new ResponseEntity<>("Failed to delete room: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     
 }

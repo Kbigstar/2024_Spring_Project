@@ -149,11 +149,11 @@
         if (confirm('정말로 이 채팅방을 삭제하시겠습니까?')) {
             $.ajax({
                 url: '/my/deleteRoom',
-                type: 'POST',
+                type: 'DELETE',
                 contentType: 'application/json',
                 data: JSON.stringify({ roomNo: roomNo }),
                 success: function(response) {
-                	console.log('==============',response);
+                    console.log('==============', response);
                     // 채팅방이 성공적으로 삭제된 경우, 화면에서 해당 채팅방을 제거
                     const roomElement = document.querySelector('.roomNo[value="'+roomNo+'"]');
                     if (roomElement) {
@@ -167,6 +167,7 @@
             });
         }
     }
+
 
         const messagesContainer = document.getElementById('messages');
         const messageInput = document.getElementById('messageInput');
@@ -199,9 +200,8 @@
         function fetchChatList(roomNo) {
             $.ajax({
                 url: '/my/chatListView',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ roomNo: roomNo }),
+                type: 'GET',
+                data: { roomNo: roomNo },
                 success: function(data) {
                     console.log('Received chat list:', data);
                     // 받아온 채팅 데이터를 화면에 출력
@@ -218,6 +218,7 @@
                 }
             });
         }
+
 
         
      // GPT 응답을 서버로 전송하는 함수
