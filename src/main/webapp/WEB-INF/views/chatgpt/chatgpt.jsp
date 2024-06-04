@@ -54,42 +54,6 @@
     let calStartdt;
     let calEnddt;
 
-    function createPlan(query, currentPlan){
-    		var plan = [];
-    		plan = currentPlan;
-    		$.ajax({
-                type: "POST",
-                url: "http://127.0.0.1:5555/gpt",
-                data :JSON.stringify({query:query, user_plan:plan}),
-                dataType : 'json',
-                success: function(res){
-                    console.log("gd",JSON.stringify(res));
-                    
-                    if (res && res.activity && res.activity.length > 0) {
-                        // activity 배열을 순회하면서 각 일정의 정보를 처리
-                        res.activity.forEach(activity => {
-                            console.log("calStartdt:", activity.calStartdt);
-                            console.log("calEnddt:", activity.calEnddt);
-                            console.log("calTitle:", activity.calTitle);
-                        calTitle = activity.calTitle + " [GPT]";
-                        calStartdt = activity.calStartdt;
-                        calEnddt = activity.calEnddt;
-
-                        var eventData = {
-                            "calTitle": calTitle,
-                            "calStartdt": calStartdt,
-                            "calEnddt": calEnddt,
-                            "memId": "${sessionScope.login.memId}"
-                        };
-                        addCalendarEvent(eventData);
-                    });}
-                },
-                error:function(e){
-                    console.log(e);
-                },
-            });
-    }
-    
     function addRoom() {
         // 방 목록의 각 방에 대한 정보를 가져옴
         const rooms = document.querySelectorAll('.room-name');
