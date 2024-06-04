@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 일정 삽입
 function addCalendarEvent(eventData) {
     $.ajax({
-        url: '/my/calendar',
+        url: '/my/addEvent',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -434,22 +434,19 @@ function fetchCalendarEvent(memId) {
     });
 }
 
+
 // 일정 수정
 function updateCalendarEvent(eventData) {
     $.ajax({
-        url: '/my/' + eventData.calNo, // RESTful 엔드포인트
-        type: 'PUT',
+        url: '/my/updateEvent',
+        type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(eventData),
         success: function(response, status, xhr) {
             if (xhr.status === 302) {
                 var redirectUrl = xhr.getResponseHeader('Location');
-                if (redirectUrl) {
-                    window.location.href = redirectUrl;
-                } else {
-                    calendar.refetchEvents();
-                }
+                window.location.href = redirectUrl;
             } else {
                 console.log(response);
                 calendar.refetchEvents();
@@ -458,8 +455,9 @@ function updateCalendarEvent(eventData) {
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
         },
-        complete: function() {
+        complete: function(a) {
             // 모달창 input val 초기화
+            // 수정 시에 colorSelect와 t_colorSelect 초기화
             startTime = '';
             endTime = '';
             $("#calendar_content").val("");
@@ -476,37 +474,35 @@ function updateCalendarEvent(eventData) {
         }
     });
 }
-
 // 일정 삭제
-function deleteCalendarEvent(calendarData) {
-    // 서버로 보낼 데이터를 JSON 형식으로 변환합니다.
-    var jsonData = JSON.stringify(calendarData);
+function deleteCalendarEvent(calendarData){
+     // 서버로 보낼 데이터를 JSON 형식으로 변환합니다.
+     var jsonData = JSON.stringify(calendarData);
 
-    // AJAX를 사용하여 서버로 요청을 보냅니다.
-    $.ajax({
-        url: '/my/' + calendarData.calNo, // RESTful 엔드포인트,
-        type: 'DELETE', // HTTP 요청 메서드 (DELETE)
-        contentType: 'application/json', // 요청 본문의 데이터 형식
-        data: jsonData, // 요청 본문에 포함될 데이터
-        success: function(response) {
-            // 성공적으로 응답을 받은 경우 실행될 함수
-            console.log(response);
-            // TODO: 성공 메시지 처리 또는 화면 갱신 등의 작업을 수행합니다.
-        },
-        error: function(xhr, status, error) {
-            // 요청이 실패한 경우 실행될 함수
-            console.error(xhr.responseText);
-            // TODO: 실패 메시지 처리 또는 오류 처리 등의 작업을 수행합니다.
-        }
-    });
+     // AJAX를 사용하여 서버로 요청을 보냅니다.
+     $.ajax({
+         url: '/my/delEvent', // 요청을 보낼 엔드포인트 URL
+         type: 'POST', // HTTP 요청 메서드 (POST)
+         contentType: 'application/json', // 요청 본문의 데이터 형식
+         data: jsonData, // 요청 본문에 포함될 데이터
+         success: function(response) {
+             // 성공적으로 응답을 받은 경우 실행될 함수
+             console.log(response);
+             // TODO: 성공 메시지 처리 또는 화면 갱신 등의 작업을 수행합니다.
+         },
+         error: function(xhr, status, error) {
+             // 요청이 실패한 경우 실행될 함수
+             console.error(xhr.responseText);
+             // TODO: 실패 메시지 처리 또는 오류 처리 등의 작업을 수행합니다.
+         }
+     });
 }
-
 
 
 //GPT 추천일정 삽입
 function addCalendarEvent2(eventData) {
     $.ajax({
-        url: '/my/calendar',
+        url: '/my/addEvent',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -608,7 +604,7 @@ function createPlan(query, currentPlan){
 	plan = currentPlan;
 	$.ajax({
         type: "POST",
-        url: "", // Flask url
+        url: "", // Flask URL
         data :JSON.stringify({query:query, user_plan:plan}),
         dataType : 'json',
         beforeSend : function(){
