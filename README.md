@@ -2,7 +2,7 @@
 
 - **Front-End**: HTML, CSS, JavaScript, jQuery
 - **Back-End**: Spring, Flask
-
+- **API** : FullCalendar API / ChatGPT API
 <br>
 
 ## 구현 목표
